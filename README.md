@@ -12,11 +12,13 @@ An MCP (Model Context Protocol) server that sends notifications via [ntfy.sh](ht
 ## Installation
 
 ### Option 1: Install from npm (once published)
+
 ```bash
 npm install -g notifymemcp
 ```
 
 ### Option 2: Install from source
+
 ```bash
 git clone https://github.com/dmgoldstein1/NotifyMeMCP.git
 cd NotifyMeMCP
@@ -27,13 +29,15 @@ npm run build
 ## Quick Start
 
 ### 1. Set up ntfy.sh on your device
+
 - Install the ntfy app on your phone ([iOS](https://apps.apple.com/us/app/ntfy/id1625396347) / [Android](https://play.google.com/store/apps/details?id=io.heckel.ntfy))
 - Subscribe to a topic (e.g., `llm-notifications`)
 - Or use the web interface at [ntfy.sh](https://ntfy.sh)
 
 ### 2. Configure the MCP server in your client
 
-#### For Claude Desktop or Cline:
+#### For Claude Desktop or Cline
+
 Add to your MCP settings configuration file (see `claude_desktop_config.example.json` for a template):
 
 **MacOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
@@ -51,6 +55,7 @@ Add to your MCP settings configuration file (see `claude_desktop_config.example.
 ```
 
 Or if installed globally via npm:
+
 ```json
 {
   "mcpServers": {
@@ -61,8 +66,10 @@ Or if installed globally via npm:
 }
 ```
 
-#### For VS Code GitHub Copilot:
+#### For VS Code GitHub Copilot
+
 Add to your Copilot instructions (see `COPILOT_INSTRUCTIONS.md` for examples):
+
 ```markdown
 Always call the send_notification MCP tool as the very last step after completing any task or response.
 ```
@@ -113,7 +120,8 @@ All parameters are optional:
 
 ### Example Tool Calls
 
-#### Basic notification (uses all defaults):
+#### Basic notification (uses all defaults)
+
 ```json
 {
   "name": "send_notification",
@@ -121,7 +129,8 @@ All parameters are optional:
 }
 ```
 
-#### Custom notification:
+#### Custom notification
+
 ```json
 {
   "name": "send_notification",
@@ -169,12 +178,14 @@ npm start
 ## Troubleshooting
 
 **Notifications not arriving?**
+
 - Verify your device is subscribed to the correct topic in the ntfy app
 - Check that the topic name matches between the server and your subscription
 - Ensure you have internet connectivity
 - Try using the ntfy.sh web interface to verify the service is working
 
 **MCP server not connecting?**
+
 - Check the path to the server in your MCP configuration
 - Look for error messages in the client logs
 - Verify Node.js is installed and in your PATH
