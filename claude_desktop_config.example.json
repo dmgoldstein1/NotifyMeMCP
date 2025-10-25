@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "notifyme": {
+      "command": "node",
+      "args": ["/absolute/path/to/NotifyMeMCP/dist/index.js"]
+    }
+  }
+}
