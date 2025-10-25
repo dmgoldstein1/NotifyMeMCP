@@ -34,7 +34,7 @@ npm run build
 ### 2. Configure the MCP server in your client
 
 #### For Claude Desktop or Cline:
-Add to your MCP settings configuration file:
+Add to your MCP settings configuration file (see `claude_desktop_config.example.json` for a template):
 
 **MacOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -62,14 +62,24 @@ Or if installed globally via npm:
 ```
 
 #### For VS Code GitHub Copilot:
-Add to your Copilot instructions (`.github/copilot-instructions.md` or workspace settings):
+Add to your Copilot instructions (see `COPILOT_INSTRUCTIONS.md` for examples):
 ```markdown
 Always call the send_notification MCP tool as the very last step after completing any task or response.
 ```
 
 ### 3. Test the server
 
-You can test the server directly using the MCP inspector:
+Test that notifications work correctly:
+
+```bash
+# Test sending a notification directly to ntfy.sh
+node scripts/test-notification.mjs my-topic "Hello from NotifyMe!"
+
+# Or use the default topic
+node scripts/test-notification.mjs
+```
+
+You can also test the MCP server directly:
 
 ```bash
 npm run dev
