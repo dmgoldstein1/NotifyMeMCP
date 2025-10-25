@@ -3,6 +3,7 @@
 import { spawn } from 'child_process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { randomBytes } from 'crypto';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -81,7 +82,7 @@ setTimeout(() => {
           title: 'Test Complete',
           priority: 3,
           tags: ['white_check_mark', 'test'],
-          topic: 'mcp-test-' + Date.now()
+          topic: 'mcp-test-' + randomBytes(8).toString('hex')
         }
       });
       
