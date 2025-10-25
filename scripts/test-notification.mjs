@@ -27,13 +27,13 @@ try {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  console.log('✅ Notification sent successfully!');
+  console.log('SUCCESS: Notification sent successfully!');
   console.log(`\nTo receive this notification:`);
   console.log(`1. Install the ntfy app on your phone or visit https://ntfy.sh`);
   console.log(`2. Subscribe to the topic: ${topic}`);
   console.log(`3. Run this script again to see the notification\n`);
 } catch (error) {
-  console.error('❌ Failed to send notification:', error.message);
+  console.error('ERROR: Failed to send notification:', error.message);
   console.error('\nTroubleshooting:');
   console.error('- Check your internet connection');
   console.error('- Verify ntfy.sh is accessible from your network');

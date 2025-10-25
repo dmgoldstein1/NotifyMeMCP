@@ -4,10 +4,10 @@ An MCP (Model Context Protocol) server that sends notifications via [ntfy.sh](ht
 
 ## Features
 
-- 🔔 Send push notifications to your devices via ntfy.sh
-- 🎯 Customizable notification messages, titles, priorities, and tags
-- 🚀 Simple integration with any MCP-compatible client
-- 🆓 Uses the free ntfy.sh service (or your own ntfy server)
+- Send push notifications to your devices via ntfy.sh
+- Customizable notification messages, titles, priorities, and tags
+- Simple integration with any MCP-compatible client
+- Uses the free ntfy.sh service (or your own ntfy server)
 
 ## Installation
 
