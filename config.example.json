@@ -1,0 +1,4 @@
+{
+  "ntfyBaseUrl": "https://ntfy.sh",
+  "defaultTopic": "llm-notifications"
+}

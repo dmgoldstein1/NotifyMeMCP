@@ -18,7 +18,8 @@ Use default parameters unless the task requires custom notification settings.
 
 ## Custom Notification Examples
 
-### For successful code completion:
+### For successful code completion
+
 ```json
 {
   "name": "send_notification",
@@ -31,7 +32,8 @@ Use default parameters unless the task requires custom notification settings.
 }
 ```
 
-### For important alerts:
+### For important alerts
+
 ```json
 {
   "name": "send_notification",
@@ -44,7 +46,8 @@ Use default parameters unless the task requires custom notification settings.
 }
 ```
 
-### For routine completions:
+### For routine completions
+
 ```json
 {
   "name": "send_notification",

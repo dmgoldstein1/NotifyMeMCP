@@ -7,9 +7,59 @@ import {
   ListToolsRequestSchema,
   Tool,
 } from "@modelcontextprotocol/sdk/types.js";
+import { readFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 
-// Default ntfy.sh topic
-const DEFAULT_TOPIC = "llm-notifications";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+/**
+ * Configuration interface
+ */
+interface Config {
+  ntfyBaseUrl: string;
+  defaultTopic?: string;
+}
+
+/**
+ * Load configuration from notifyMeMCPconfig.json file
+ * Throws error if file doesn't exist or ntfyBaseUrl is not configured
+ */
+function loadConfig(): Config {
+  try {
+  const configPath = join(__dirname, "../notifyMeMCPconfig.json");
+    const configData = readFileSync(configPath, "utf-8");
+    const config = JSON.parse(configData);
+    
+    if (!config.ntfyBaseUrl) {
+  throw new Error("ntfyBaseUrl is required in notifyMeMCPconfig.json");
+    }
+    
+    return config;
+  } catch (error) {
+    if (error instanceof Error) {
+    throw new Error(`Failed to load notifyMeMCPconfig.json: ${error.message}`);
+    }
+    throw error;
+  }
+}
+
+// Load configuration
+const config = loadConfig();
+
+/**
+ * Base URL for the ntfy server
+ * REQUIRED: Must be configured in notifyMeMCPconfig.json
+ * This should be kept secret
+ */
+const NTFY_BASE_URL = config.ntfyBaseUrl;
+
+/**
+ * Default ntfy topic name
+ * Loaded from notifyMeMCPconfig.json or defaults to llm-notifications
+ */
+const DEFAULT_TOPIC = config.defaultTopic || "llm-notifications";
 
 // Interface for notification parameters
 interface NotificationParams {
@@ -87,10 +137,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const message = params.message || "LLM has finished generating";
     const priority = params.priority || 3;
     const tags = params.tags || ["white_check_mark", "robot"];
+    
+    // Construct URL for error reporting
+    const url = `${NTFY_BASE_URL}/${topic}`;
 
     try {
-      // Send notification to ntfy.sh
-      const url = `https://ntfy.sh/${topic}`;
+      // Send notification to ntfy server
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -102,14 +154,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${errorText || response.statusText}`);
       }
 
+      // Silent success - only return success without verbose details
       return {
         content: [
           {
             type: "text",
-            text: `Notification sent successfully to ${topic}!\nTitle: ${title}\nMessage: ${message}\nPriority: ${priority}\nTags: ${tags.join(", ")}`,
+            text: "",
           },
         ],
       };
@@ -119,7 +173,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         content: [
           {
             type: "text",
-            text: `Failed to send notification: ${errorMessage}`,
+            text: `ERROR: Failed to send notification to ${url}\n${errorMessage}\n\nPlease check:\n- Your notifyMeMCPconfig.json has the correct ntfyBaseUrl\n- The ntfy server is accessible\n- The topic name is valid`,
           },
         ],
         isError: true,

@@ -74,15 +74,15 @@ setTimeout(() => {
     sendRequest('tools/list');
     
     setTimeout(() => {
-      // 3. Call the notification tool
+      // 3. Call the notification tool with default topic from config
       sendRequest('tools/call', {
         name: 'send_notification',
         arguments: {
           message: 'Test notification from MCP server',
           title: 'Test Complete',
           priority: 3,
-          tags: ['white_check_mark', 'test'],
-          topic: 'mcp-test-' + randomBytes(8).toString('hex')
+          tags: ['white_check_mark', 'test']
+          // Using default topic from notifyMeMCPconfig.json
         }
       });
       

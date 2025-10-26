@@ -1,0 +1,8 @@
+{
+  "mcp.servers": {
+    "notifyme": {
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/index.js"]
+    }
+  }
+}

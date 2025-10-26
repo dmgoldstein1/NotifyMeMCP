@@ -1,7 +1,7 @@
 {
   "name": "notifymemcp",
   "version": "1.0.0",
-  "description": "An MCP server to trigger notifications when an LLM is finished.",
+  "description": "An MCP server that sends notifications via ntfy.sh when your LLM finishes generating tokens. Perfect for long-running LLM tasks where you want to be notified when completion happens. Provides a send_notification tool with customizable messages, titles, priorities, and tags. Requires a notifyMeMCPconfig.json file with your ntfy server URL (see config.example.json). Silent on success, alerts LLM only on errors.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
